@@ -37,10 +37,11 @@
     "minecraft": "~${minecraft_version}"
   },
   "recommends": {
-    "modmenu": ">=5.0.2",
-    "cloth-config-fabric": ">=9.0.94"
+    "modmenu": ">=6.2.3",
+    "cloth-config-fabric": ">=10.0.96"
   },
   "suggests": {
     "citresewn": "*"
   }
 }
+
