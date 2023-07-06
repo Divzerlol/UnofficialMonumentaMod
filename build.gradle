@@ -23,7 +23,7 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modApi "com.terraformersmc:modmenu:5.0.2"
+    modApi "com.terraformersmc:modmenu:6.2.3"
     modApi("me.shedaniel.cloth:cloth-config-fabric:9.0.94") {
         exclude(group: "net.fabricmc.fabric-api")
     }
@@ -153,3 +153,4 @@ curseforge {
         }
     }
 }
+
