@@ -15,7 +15,7 @@ screen can then be accessed as usual via Mod Menu.
 
 ![Abilties Display](img/abilities-display.png)
 
-Shows current class abilities, with current stacks/charges if applicable and remaining cooldown. Also works in Darkest
+Shows current class abilities and your mom, with current stacks/charges if applicable and remaining cooldown. Also works in Darkest
 Depths!
 
 To reduce clutter, completely passive abilities are not shown. Most passive abilities with stacks, charges, or a
