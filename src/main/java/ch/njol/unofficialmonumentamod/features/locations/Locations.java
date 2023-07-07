@@ -1,6 +1,7 @@
 package ch.njol.unofficialmonumentamod.features.locations;
 
 import ch.njol.unofficialmonumentamod.UnofficialMonumentaModClient;
+import ch.njol.unofficialmonumentamod.features.calculator.Calculator;
 import ch.njol.unofficialmonumentamod.mixins.PlayerListHudAccessor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,9 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -71,6 +75,15 @@ public class Locations {
 		return shard;
 	}
 
+	public static String getShortShardFrom(Text text) {
+		String fullShard = getShardFrom(text);
+		if (fullShard == null) {
+			return null;
+		}
+
+		return fullShard.replaceFirst("-\\d+$", "");
+	}
+
 	public static String getShortShard() {
 		if (cachedShortShard != null && lastUpdateTimeShortShard + 2000 > System.currentTimeMillis()) {
 			return cachedShortShard;
@@ -95,7 +108,12 @@ public class Locations {
 	private static final Identifier FILE_IDENTIFIER = new Identifier(UnofficialMonumentaModClient.MOD_IDENTIFIER, "override/locations.json");
 
 	public void reload() {
-		try (InputStream stream = MinecraftClient.getInstance().getResourceManager().getResource(FILE_IDENTIFIER).getInputStream();
+		locations.clear();
+		Optional<Resource> resource = MinecraftClient.getInstance().getResourceManager().getResource(FILE_IDENTIFIER);
+		if (resource.isEmpty()) {
+			return;
+		}
+		try (InputStream stream = resource.get().getInputStream();
 		     InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
 			locations = GSON.fromJson(reader, new TypeToken<HashMap<String, ArrayList<Location>>>() {
 			}.getType());
@@ -147,5 +165,4 @@ public class Locations {
 				       && ((playerZ >= north && playerZ <= south) || (playerZ <= north && playerZ >= south));
 		}
 	}
-
 }
